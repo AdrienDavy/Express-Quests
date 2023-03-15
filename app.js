@@ -6,7 +6,8 @@ require("dotenv").config();
 const app = express();
 
 const port = process.env.APP_PORT ?? 5000;
-
+app.use(express.json());
+// app.use(express.urlencoded({ extended: true }))
 const welcome = (req, res) => {
   res.send("Welcome to my favourite movie liste");
 };
@@ -20,6 +21,10 @@ app.get("/api/users/:id", usersHandlers.getUsersById);
 
 app.get("/api/movies", movieHandlers.getMovies);
 app.get("/api/movies/:id", movieHandlers.getMovieById);
+
+app.post('/api/movies', movieHandlers.postMovie)
+app.post('/api/users', usersHandlers.postUsers)
+
 
 app.listen(port, (err) => {
   if (err) {
