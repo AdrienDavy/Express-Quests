@@ -4,6 +4,9 @@ const movieHandlers = require("./movieHandlers");
 const usersHandlers = require("./usersHandlers");
 require("dotenv").config();
 const app = express();
+const { validateMovie, validateUsers } = require("./validators.js");
+
+
 
 const port = process.env.APP_PORT ?? 5000;
 app.use(express.json());
@@ -22,11 +25,12 @@ app.get("/api/users/:id", usersHandlers.getUsersById);
 app.get("/api/movies", movieHandlers.getMovies);
 app.get("/api/movies/:id", movieHandlers.getMovieById);
 
-app.post('/api/movies', movieHandlers.postMovie);
-app.post('/api/users', usersHandlers.postUsers);
 
-app.put('/api/movies/:id', movieHandlers.updateMovie);
-app.put('/api/users/:id', usersHandlers.updateUsers);
+app.post("/api/movies", validateMovie, movieHandlers.postMovie);
+app.post('/api/users', validateUsers, usersHandlers.postUsers);
+
+app.put('/api/movies/:id', validateMovie, movieHandlers.updateMovie);
+app.put('/api/users/:id', validateUsers, usersHandlers.updateUsers);
 
 app.listen(port, (err) => {
   if (err) {
