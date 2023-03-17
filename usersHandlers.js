@@ -44,7 +44,7 @@ const getUsers = (req, res) => {
       where.map(({ value }) => value)
     )
     .then(([users]) => {
-      res.json(users);
+      res.status(200).json(users);
     })
     .catch((err) => {
       console.error(err);

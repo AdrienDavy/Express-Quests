@@ -1,5 +1,9 @@
 require("dotenv").config();
+//mysql2 permet de communiquer avec mysql
 const mysql = require("mysql2/promise");
+//OU
+// const mysqlConnection = require('mysql2');
+// const mysql = mysqlConnection.promise();
 
 const database = mysql.createPool({
   host: process.env.DB_HOST, // address of the server
